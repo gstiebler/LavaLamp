@@ -5,10 +5,10 @@ import math
 
 random.seed()
 
-height = 480
-width = 640
+width = 1280
+height = 720
 evolutionRate = 5.0
-numPoints = 3
+numPoints = 4
 multiplier = 5
 
 distY = np.transpose(np.tile(np.linspace(-height, height, height * 2), (width * 2, 1)))
@@ -70,16 +70,22 @@ points = []
 for i in range(0, numPoints):
     points.append(Point())
 
-while(True):
+seconds = 60
+fps = 30
+
+# Define the codec and create a VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
+out = cv2.VideoWriter('output.mp4', fourcc, fps, (width, height))
+
+
+num_frames = seconds * fps
+print("Generating %d frames" % num_frames)
+for index in range(num_frames):
+    print(index)
     for point in points:
         point.step()
 
     frame = draw(points)
-
-    # Display the resulting frame
-    cv2.imshow('frame', frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-# When everything done, release the capture
-cv2.destroyAllWindows()
+    
+    # Write the frame into the file 'output.mp4'
+    out.write(np.uint8(frame*255))
