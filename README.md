@@ -33,7 +33,7 @@ You can customize the following parameters in the script:
 You can simply run the script using Python 3:
 
 ```bash
-python3 generative_art.py
+python3 psychedelic.py
 ```
 
 ## How It Works
